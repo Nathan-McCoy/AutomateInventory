@@ -87,7 +87,7 @@
       <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="UpdateFiles" sap:VirtualizedContainerService.HintSize="416,560" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="UpdateFiles" sap:VirtualizedContainerService.HintSize="416,529" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_NewInvData" />
       <Variable x:TypeArguments="si:DirectoryInfo" Name="WorkingDirectory" />
@@ -108,16 +108,11 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Update Wayfair Inv File" DisplayName="UpdateWayfair - Invoke Workflow File (UpdateFiles\RetailersToUpdate\UpdateWayfair.xaml)" sap:VirtualizedContainerService.HintSize="354,226" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="UpdateFiles\RetailersToUpdate\UpdateWayfair.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="UpdateWayfair - Invoke Workflow File (UpdateFiles\RetailersToUpdate\UpdateWayfair.xaml)" sap:VirtualizedContainerService.HintSize="354,195" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="UpdateFiles\RetailersToUpdate\UpdateWayfair.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="si:DirectoryInfo" x:Key="in_WorkingDirectory">[WorkingDirectory]</InArgument>
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_NewInvData">[dt_NewInvData]</InArgument>
+        <InArgument x:TypeArguments="si:DirectoryInfo" x:Key="in_WorkingDirectory">[WorkingDirectory]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
   </Sequence>
 </Activity>
