@@ -41,6 +41,8 @@
       <x:String>UiPath.Excel.Activities</x:String>
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Numerics</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -88,20 +90,33 @@
       <AssemblyReference>System.IO.Packaging</AssemblyReference>
       <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
       <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="UpdateWayfair" sap:VirtualizedContainerService.HintSize="541,621" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="UpdateWayfair" sap:VirtualizedContainerService.HintSize="541,624" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="FLWhrseCode" />
       <Variable x:TypeArguments="x:String" Name="TXWhrseCode" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_WayfairInvData" />
+      <Variable x:TypeArguments="x:Int32" Name="Index" />
+      <Variable x:TypeArguments="x:String" Name="WhrseCol" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:MultipleAssign DisplayName="Assign Warehouse Codes" sap:VirtualizedContainerService.HintSize="479,179" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Assign Warehouse Codes" sap:VirtualizedContainerService.HintSize="479,180" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -128,14 +143,17 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:MultipleAssign>
-    <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dt_WayfairInvData]" DisplayName="Read Wayfair Inventory Spreadsheet" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Worksheet" WorkbookPath="[in_WorkingDirectory.ToString + &quot;/Wayfair/VONN Wayfair Inventory 2022.xlsx&quot;]" />
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_WayfairInvData]" DisplayName="For Each Row in Wayfair Data Table" sap:VirtualizedContainerService.HintSize="334,211" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ReadRange AddHeaders="True" DataTable="[dt_WayfairInvData]" DisplayName="Read Wayfair Inventory Spreadsheet" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" Password="{x:Null}" Range="{x:Null}" SheetName="Worksheet" WorkbookPath="[in_WorkingDirectory.ToString + &quot;/Wayfair/VONN Wayfair Inventory 2022.xlsx&quot;]" />
+    <ui:ForEachRow ColumnNames="{x:Null}" DisplayName="For Each Row in Wayfair Data Table" sap:VirtualizedContainerService.HintSize="479,236" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="WayfairCurrentRow" />
           </ActivityAction.Argument>
-          <Flowchart DisplayName="UpdateWayfairFile" sap:VirtualizedContainerService.HintSize="1260,778" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+          <Flowchart DisplayName="Determine Warehouse" sap:VirtualizedContainerService.HintSize="1260,778" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+            <Flowchart.Variables>
+              <Variable x:TypeArguments="x:Int32" Name="WayfairIndex" />
+            </Flowchart.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -145,20 +163,204 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <Flowchart.StartNode>
-              <x:Reference>__ReferenceID0</x:Reference>
+              <x:Reference>__ReferenceID6</x:Reference>
             </Flowchart.StartNode>
-            <FlowDecision x:Name="__ReferenceID0" Condition="[CurrentRow.Item(&quot;Supplier ID&quot;).ToString = FLWhrseCode]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="59,59" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+            <FlowDecision x:Name="__ReferenceID6" DisplayName="Row Is FL Warehouse?" sap:VirtualizedContainerService.HintSize="59,59" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+              <FlowDecision.Condition>
+                <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="WayfairCurrentRow.Item(&quot;Supplier ID&quot;).ToString = FLWhrseCode">
+                  <VisualBasicValue.Result>
+                    <OutArgument x:TypeArguments="x:Boolean" />
+                  </VisualBasicValue.Result>
+                </VisualBasicValue>
+              </FlowDecision.Condition>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <av:Point x:Key="ShapeLocation">600,130</av:Point>
                   <av:Size x:Key="ShapeSize">59,59</av:Size>
+                  <av:PointCollection x:Key="TrueConnector">600,159.5 470,159.5 470,275</av:PointCollection>
+                  <av:PointCollection x:Key="FalseConnector">659,159.5 829.5,159.5 829.5,280</av:PointCollection>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
+              <FlowDecision.True>
+                <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">415,275</av:Point>
+                      <av:Size x:Key="ShapeSize">110,70</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">470,345 470,455</av:PointCollection>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign FL Col" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[WhrseCol]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">FL</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <FlowStep.Next>
+                    <FlowStep x:Name="__ReferenceID5">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">415,455</av:Point>
+                          <av:Size x:Key="ShapeSize">110,70</av:Size>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[WayfairIndex]" DataTable="[in_dt_NewInvData]" DisplayName="For Each Row in New Inv Data" sap:VirtualizedContainerService.HintSize="546,825" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                        <ui:ForEachRow.Body>
+                          <ActivityAction x:TypeArguments="sd:DataRow">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="NewInvCurrentRow" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Update QTY and Next Available Date" sap:VirtualizedContainerService.HintSize="512,659" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If Condition="[NewInvCurrentRow.Item(WhrseCol).ToString &lt;&gt; WayfairCurrentRow.Item(&quot;Quantity On Hand&quot;).ToString]" DisplayName="If QTY Does Not Match" sap:VirtualizedContainerService.HintSize="450,571" sap2010:WorkflowViewState.IdRef="If_2">
+                                <If.Then>
+                                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,305" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:UpdateRowItem ColumnIndex="{x:Null}" ColumnName="Quantity On Hand" DisplayName="Update QTY in Wayfair Inventory DT" sap:VirtualizedContainerService.HintSize="354,217" sap2010:WorkflowViewState.IdRef="UpdateRowItem_1" Row="[WayfairCurrentRow]" Value="[NewInvCurrentRow.Item(WhrseCol)]" />
+                                  </Sequence>
+                                </If.Then>
+                                <If.Else>
+                                  <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,104" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </Sequence>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:ForEachRow.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:ForEachRow>
+                    </FlowStep>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowDecision.True>
+              <FlowDecision.False>
+                <FlowDecision x:Name="__ReferenceID2" DisplayName="Row is TX Warehouse?" sap:VirtualizedContainerService.HintSize="59,59" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+                  <FlowDecision.Condition>
+                    <VisualBasicValue x:TypeArguments="x:Boolean" DisplayName="Visual basic value" ExpressionText="WayfairCurrentRow.Item(&quot;Supplier ID&quot;).ToString = TXWhrseCode" />
+                  </FlowDecision.Condition>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <av:Point x:Key="ShapeLocation">800,280</av:Point>
+                      <av:Size x:Key="ShapeSize">59,59</av:Size>
+                      <av:PointCollection x:Key="TrueConnector">800,309.5 800,310 715,310</av:PointCollection>
+                      <av:PointCollection x:Key="FalseConnector">859,309.5 889,309.5 889,310 965,310</av:PointCollection>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <FlowDecision.True>
+                    <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">605,275</av:Point>
+                          <av:Size x:Key="ShapeSize">110,70</av:Size>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Assign TX Col" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[WhrseCol]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">TX</InArgument>
+                        </Assign.Value>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Assign>
+                    </FlowStep>
+                  </FlowDecision.True>
+                  <FlowDecision.False>
+                    <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_3">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">965,275</av:Point>
+                          <av:Size x:Key="ShapeSize">110,70</av:Size>
+                          <av:PointCollection x:Key="ConnectorLocation">1020,345 1020,455</av:PointCollection>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:LogMessage DisplayName="Log Error" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[&quot;Could not match warehouse code: &quot; + WayfairCurrentRow.Item(&quot;Supplier ID&quot;).ToString + &quot;for Model # &quot; + WayfairCurrentRow.Item(&quot;Supplier Part#&quot;).ToString + &quot;at row &quot; + Index.toString]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:LogMessage>
+                      <FlowStep.Next>
+                        <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_5">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <av:Point x:Key="ShapeLocation">965,455</av:Point>
+                              <av:Size x:Key="ShapeSize">110,70</av:Size>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:Break sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Break_1">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:Break>
+                        </FlowStep>
+                      </FlowStep.Next>
+                    </FlowStep>
+                  </FlowDecision.False>
+                </FlowDecision>
+              </FlowDecision.False>
             </FlowDecision>
+            <x:Reference>__ReferenceID0</x:Reference>
+            <x:Reference>__ReferenceID1</x:Reference>
+            <x:Reference>__ReferenceID2</x:Reference>
+            <x:Reference>__ReferenceID3</x:Reference>
+            <x:Reference>__ReferenceID4</x:Reference>
+            <x:Reference>__ReferenceID5</x:Reference>
           </Flowchart>
         </ActivityAction>
       </ui:ForEachRow.Body>
+      <ui:ForEachRow.CurrentIndex>
+        <OutArgument x:TypeArguments="x:Int32">
+          <VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="Index">
+            <VisualBasicReference.Result>
+              <OutArgument x:TypeArguments="Location(x:Int32)" />
+            </VisualBasicReference.Result>
+          </VisualBasicReference>
+        </OutArgument>
+      </ui:ForEachRow.CurrentIndex>
+      <ui:ForEachRow.DataTable>
+        <InArgument x:TypeArguments="sd:DataTable">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_WayfairInvData">
+            <VisualBasicValue.Result>
+              <OutArgument x:TypeArguments="sd:DataTable" />
+            </VisualBasicValue.Result>
+          </VisualBasicValue>
+        </InArgument>
+      </ui:ForEachRow.DataTable>
     </ui:ForEachRow>
   </Sequence>
 </Activity>
