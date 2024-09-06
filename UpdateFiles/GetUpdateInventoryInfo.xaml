@@ -6,7 +6,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1181,2065</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1200,1851</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetUpdateInventoryInfo_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -113,7 +113,7 @@
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetUpdateInventoryInfo" sap:VirtualizedContainerService.HintSize="698,2000" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetUpdateInventoryInfo" sap:VirtualizedContainerService.HintSize="698,1786" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="FilePath" />
       <Variable x:TypeArguments="si:FileInfo" Name="FileInfo" />
@@ -126,7 +126,7 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:SelectFile DisplayName="Browse For New Inventory File" Filter="Excel|*.xlsx;*.xls;*.xlsm;*.xlsb" sap:VirtualizedContainerService.HintSize="636,170" sap2010:WorkflowViewState.IdRef="SelectFile_1" SelectedFile="[FilePath]" />
     <ui:GetFileInfoX DisplayName="Get New Inventory File Info" FilePath="[FilePath]" sap:VirtualizedContainerService.HintSize="636,165" sap2010:WorkflowViewState.IdRef="GetFileInfoX_1" Output="[FileInfo]" />
-    <Assign DisplayName="Assign New Inventory File Directory Path" sap:VirtualizedContainerService.HintSize="636,113" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign New Inventory File Directory Path" sap:VirtualizedContainerService.HintSize="636,114" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="si:DirectoryInfo">[out_WorkingDirectory]</OutArgument>
       </Assign.To>
@@ -167,7 +167,7 @@
         </ActivityAction>
       </ueab:ExcelProcessScopeX.Body>
     </ueab:ExcelProcessScopeX>
-    <ui:ForEachRow ColumnNames="{x:Null}" sap2010:Annotation.AnnotationText="Review first 250 entries of data to look for irregularities" CurrentIndex="[Index]" DataTable="[out_dt_NewInvData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="636,479" sap2010:WorkflowViewState.IdRef="ForEachRow_1" MaxIterations="250">
+    <ui:ForEachRow ColumnNames="{x:Null}" sap2010:Annotation.AnnotationText="Review first 250 entries of data to look for irregularities" CurrentIndex="[Index]" DataTable="[out_dt_NewInvData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="636,470" sap2010:WorkflowViewState.IdRef="ForEachRow_1" MaxIterations="250">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
@@ -189,12 +189,5 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
-    <ui:LogMessage sap2010:Annotation.AnnotationText="Running into issue were NewInvData DT has 1048575 rows" DisplayName="Log New Inventory DT Row Count" sap:VirtualizedContainerService.HintSize="636,206" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[out_dt_NewInvData.RowCount.ToString]">
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-    </ui:LogMessage>
   </Sequence>
 </Activity>
