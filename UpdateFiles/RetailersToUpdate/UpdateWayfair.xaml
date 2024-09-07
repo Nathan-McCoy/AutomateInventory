@@ -6,7 +6,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1181,837</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1200,834</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>UpdateWayfair_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -111,7 +111,7 @@
       <Variable x:TypeArguments="x:String" Name="FLWhrseCode" />
       <Variable x:TypeArguments="x:String" Name="TXWhrseCode" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_WayfairInvData" />
-      <Variable x:TypeArguments="x:Int32" Name="Index" />
+      <Variable x:TypeArguments="x:Int32" Name="WayfairIndex" />
       <Variable x:TypeArguments="x:String" Name="WhrseCol" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -147,13 +147,13 @@
       </sap:WorkflowViewStateService.ViewState>
     </ui:MultipleAssign>
     <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dt_WayfairInvData]" DisplayName="Read Wayfair Inventory Spreadsheet" sap:VirtualizedContainerService.HintSize="479,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Worksheet" WorkbookPath="[in_WorkingDirectory.ToString + &quot;/Wayfair/VONN Wayfair Inventory 2022.xlsx&quot;]" />
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[Index]" DataTable="[dt_WayfairInvData]" DisplayName="For Each Row in Wayfair Data Table" sap:VirtualizedContainerService.HintSize="479,243" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[WayfairIndex]" DataTable="[dt_WayfairInvData]" DisplayName="For Each Row in Wayfair Data Table" sap:VirtualizedContainerService.HintSize="334,211" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="WayfairCurrentRow" />
           </ActivityAction.Argument>
-          <Flowchart DisplayName="Determine Warehouse" sap:VirtualizedContainerService.HintSize="1260,778" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+          <Flowchart DisplayName="Determine Warehouse" sap:VirtualizedContainerService.HintSize="201,25" sap2010:WorkflowViewState.IdRef="Flowchart_1">
             <Flowchart.Variables>
               <Variable x:TypeArguments="x:Int32" Name="WayfairIndex" />
             </Flowchart.Variables>
@@ -209,7 +209,7 @@
                           <av:PointCollection x:Key="ConnectorLocation">525,490 755,490</av:PointCollection>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[WayfairIndex]" DataTable="[in_dt_NewInvData]" DisplayName="For Each Row in New Inv Data" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_dt_NewInvData]" DisplayName="For Each Row in New Inv Data" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
                         <ui:ForEachRow.Body>
                           <ActivityAction x:TypeArguments="sd:DataRow">
                             <ActivityAction.Argument>
@@ -362,7 +362,7 @@
                           <av:PointCollection x:Key="ConnectorLocation">1020,345 1020,490 865,490</av:PointCollection>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <ui:LogMessage DisplayName="Log Error" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[&quot;Could not match warehouse code: &quot; + WayfairCurrentRow.Item(&quot;Supplier ID&quot;).ToString + &quot;for Model # &quot; + WayfairCurrentRow.Item(&quot;Supplier Part#&quot;).ToString + &quot;at row &quot; + Index.toString]">
+                      <ui:LogMessage DisplayName="Log Error" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[&quot;Could not match warehouse code: &quot; + WayfairCurrentRow.Item(&quot;Supplier ID&quot;).ToString + &quot;for Model # &quot; + WayfairCurrentRow.Item(&quot;Supplier Part#&quot;).ToString + &quot;at row &quot; + WayfairIndex.toString]">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
