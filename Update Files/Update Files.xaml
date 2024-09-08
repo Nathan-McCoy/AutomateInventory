@@ -1,6 +1,6 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="UpdateFiles" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_WorkingDirectory" Type="InArgument(si:DirectoryInfo)" />
+    <x:Property Name="out_WorkingDirectory" Type="OutArgument(si:DirectoryInfo)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
@@ -151,7 +151,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Update Amazon Seller Inventory File" DisplayName="Update Amazon Seller - Invoke Workflow File (UpdateFiles\RetailersToUpdate\Update Amazon Seller.xaml)" sap:VirtualizedContainerService.HintSize="354,235" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Update Files\Retailers To Update\Update Amazon Seller.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Update Amazon Seller Inventory File" DisplayName="Update Amazon Seller - Invoke Workflow File (UpdateFiles\RetailersToUpdate\Update Amazon Seller.xaml)" sap:VirtualizedContainerService.HintSize="434,235" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Update Files\Retailers To Update\Update Amazon Seller.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_NewInvData">[dt_NewInvData]</InArgument>
         <InArgument x:TypeArguments="si:DirectoryInfo" x:Key="in_WorkingDirectory">[WorkingDirectory]</InArgument>

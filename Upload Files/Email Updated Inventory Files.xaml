@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1200,1055</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1214,1228</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Email_Updated_Inventory_Files_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -114,9 +114,7 @@
     <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Body="Please see updateed inventory file attached below" DisplayName="Send SMTP Mail with Wayfair Inventory" Email="[EmailUserName]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="354,184" sap2010:WorkflowViewState.IdRef="SendMail_1" IgnoreCRL="True" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[EmailPassword]" Server="smtp.gmail.com" Subject="Wayfiar Inventory" To="nathanmccoy25@gmail.com">
       <ui:SendMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-          <InArgument x:TypeArguments="x:String">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkingDirectory.ToString + &quot;\Wayfair\VONN Wayfair Inventory 2022.xlsx&quot;" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String">[in_WorkingDirectory.toString + "\Wayfair\VONN Wayfair Inventory 2022.xlsx"]</InArgument>
         </scg:List>
       </ui:SendMail.Files>
     </ui:SendMail>
@@ -124,7 +122,7 @@
       <ui:SendMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
           <InArgument x:TypeArguments="x:String">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkingDirectory.ToString + &quot;\Amazon Dropshiop\VONN Amazon DropShip Inventory 2022.csv&quot;" />
+            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkingDirectory.ToString + &quot;\Amazon DropShip\VONN Amazon DropShip Inventory 2022.csv&quot;" />
           </InArgument>
         </scg:List>
       </ui:SendMail.Files>
@@ -132,18 +130,14 @@
     <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Body="Please see updateed inventory file attached below" DisplayName="Send SMTP Mail with Amazon Seller Inventory" Email="[EmailUserName]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="354,184" sap2010:WorkflowViewState.IdRef="SendMail_3" IgnoreCRL="True" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[EmailPassword]" Server="smtp.gmail.com" Subject="Amazon Seller Inventory" To="nathanmccoy25@gmail.com">
       <ui:SendMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-          <InArgument x:TypeArguments="x:String">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkingDirectory.ToString + &quot;\Amazon Seller\Amazon Seller Central Inventory 2023.xlsx&quot;" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String">[in_WorkingDirectory.ToString + "\Amazon Seller\Amazon Seller Central Inventory 2023.xlsx"]</InArgument>
         </scg:List>
       </ui:SendMail.Files>
     </ui:SendMail>
     <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Body="Please see updateed inventory file attached below" DisplayName="Send SMTP Mail with LNY Inventory" Email="[EmailUserName]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="354,175" sap2010:WorkflowViewState.IdRef="SendMail_4" IgnoreCRL="True" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[EmailPassword]" Server="smtp.gmail.com" Subject="LNY Inventory" To="nathanmccoy25@gmail.com">
       <ui:SendMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-          <InArgument x:TypeArguments="x:String">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkingDirectory.ToString + &quot;\Lighting New York\VONN Lightng New York 2022.xlsx&quot;" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String">[in_WorkingDirectory.ToString + "\Lighting New York\VONN Lightng New York 2022.xlsx"]</InArgument>
         </scg:List>
       </ui:SendMail.Files>
     </ui:SendMail>

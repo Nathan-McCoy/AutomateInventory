@@ -79,7 +79,7 @@
       <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="416,604" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Update and Email Inventory" sap:VirtualizedContainerService.HintSize="416,604" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="si:DirectoryInfo" Name="WorkingDirectory" />
     </Sequence.Variables>
@@ -90,7 +90,7 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="UpdateFiles - Invoke Workflow File (UpdateFiles\UpdateFiles.xaml)" sap:VirtualizedContainerService.HintSize="354,204" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Update Files\Update Files.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="si:DirectoryInfo" x:Key="out_WorkingDirectory">[WorkingDirectory]</InArgument>
+        <OutArgument x:TypeArguments="si:DirectoryInfo" x:Key="out_WorkingDirectory">[WorkingDirectory]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Email Updated Inventory Files - Invoke Workflow File (Upload Files\Email Updated Inventory Files.xaml)" sap:VirtualizedContainerService.HintSize="354,204" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Upload Files\Email Updated Inventory Files.xaml">
@@ -98,6 +98,6 @@
         <InArgument x:TypeArguments="si:DirectoryInfo" x:Key="in_WorkingDirectory">[WorkingDirectory]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="354,108" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Process Completed&quot;]" />
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Process Completed Message" sap:VirtualizedContainerService.HintSize="354,108" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Process Completed&quot;]" />
   </Sequence>
 </Activity>
